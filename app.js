@@ -14,11 +14,17 @@ let astro = [];
 // display all babies on page load
 window.addEventListener('load', async () => {
     const babyResponse = await getBabies();
-    console.log(babyResponse);
     babies = babyResponse.data;
     /* Display Functions */
     displayBabies();
 });
+// we put getBabies but could be getType
+async function findBabies(astroSign) {
+    const response = await getBabies(astroSign);
+    babies = response.data;
+    findBabies();
+}
+
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(searchForm);
