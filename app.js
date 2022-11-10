@@ -1,4 +1,5 @@
 /* Imports */
+// getTypes is get Astrosign
 import { getBabies, getTypes } from './fetch-utils.js';
 import { renderBabies, renderAstro } from './render-utils.js';
 /* Get DOM Elements */
@@ -8,15 +9,19 @@ const astroSelect = document.getElementById('type-select');
 
 /* State */
 let babies = [];
-let astro = [];
+let astros = [];
 
 /* Events */
 // display all babies on page load
 window.addEventListener('load', async () => {
+    const astroSigns = await getTypes();
+    astros = astroSigns.data;
+    console.log('astros', astros);
     const babyResponse = await getBabies();
     babies = babyResponse.data;
     /* Display Functions */
     displayBabies();
+    displayAstroOptions();
 });
 // we put getBabies but could be getType
 async function findBabies(astroSign) {
@@ -36,5 +41,12 @@ function displayBabies() {
     for (let baby of babies) {
         const babyEL = renderBabies(baby);
         babyList.append(babyEL);
+    }
+}
+
+function displayAstroOptions() {
+    for (let astro of astros) {
+        const option = renderAstro(astro);
+        astroSelect.append(option);
     }
 }

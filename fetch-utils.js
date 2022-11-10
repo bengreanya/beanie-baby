@@ -19,6 +19,7 @@ export async function getBabies(astroSign) {
 }
 
 export async function getTypes() {
-    const response = await client.from('beanie_baby').select('*');
+    const response = await client.from('beanie_baby_astro_signs').select('*');
+    console.log(response);
     return response;
 }
