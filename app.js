@@ -1,5 +1,5 @@
 /* Imports */
-import { getBabies, getAstro } from './fetch-utils.js';
+import { getBabies, getTypes } from './fetch-utils.js';
 import { renderBabies, renderAstro } from './render-utils.js';
 /* Get DOM Elements */
 const babyList = document.getElementById('baby-list');
@@ -13,12 +13,11 @@ let astro = [];
 /* Events */
 // display all babies on page load
 window.addEventListener('load', async () => {
-    getBabies();
-
-    const astroResponse = await getAstro();
-    astro = astroResponse.data;
+    const babyResponse = await getBabies();
+    console.log(babyResponse);
+    babies = babyResponse.data;
     /* Display Functions */
-    // displayAstro();
+    displayBabies();
 });
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -26,3 +25,10 @@ searchForm.addEventListener('submit', (e) => {
     getBabies(formData.get('astroSign'));
 });
 // (don't forget to call any display functions you want to run on page load!)
+function displayBabies() {
+    babyList.innerHTML = '';
+    for (let baby of babies) {
+        const babyEL = renderBabies(baby);
+        babyList.append(babyEL);
+    }
+}
