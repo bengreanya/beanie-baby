@@ -16,7 +16,6 @@ let astros = [];
 window.addEventListener('load', async () => {
     const astroSigns = await getTypes();
     astros = astroSigns.data;
-    console.log('astros', astros);
     const babyResponse = await getBabies();
     babies = babyResponse.data;
     /* Display Functions */
@@ -27,13 +26,13 @@ window.addEventListener('load', async () => {
 async function findBabies(astroSign) {
     const response = await getBabies(astroSign);
     babies = response.data;
-    findBabies();
+    displayBabies();
 }
 
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(searchForm);
-    getBabies(formData.get('astroSign'));
+    findBabies(formData.get('astroSign'));
 });
 // (don't forget to call any display functions you want to run on page load!)
 function displayBabies() {
